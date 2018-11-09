@@ -5,8 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class CernHrDbServiceApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(CernHrDbServiceApplication.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(CernHrDbServiceApplication.class, args);
+  }
 }
