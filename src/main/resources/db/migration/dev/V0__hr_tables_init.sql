@@ -1,4 +1,4 @@
-create sequence hibernate_sequence start with 1 increment by  1;
+create sequence hibernate_sequence start with 10000 increment by  1;
 
 create table countries (iso_code varchar2(2 char) not null, 
   before_place_or_country varchar2(1 char) not null, 

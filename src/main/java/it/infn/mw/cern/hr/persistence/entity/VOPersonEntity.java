@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package it.infn.mw.cern.hr.persistence.model;
+package it.infn.mw.cern.hr.persistence.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -36,7 +36,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "VOMS_PERSONS")
-public class VOMSPerson implements Serializable {
+public class VOPersonEntity implements Serializable {
 
   /**
    * 
@@ -110,11 +110,11 @@ public class VOMSPerson implements Serializable {
 
   @ManyToOne(optional = true, fetch = FetchType.LAZY)
   @JoinColumn(name = "NATIONALITY1")
-  Country nationality1;
+  CountryEntity nationality1;
 
   @ManyToOne(optional = true, fetch = FetchType.LAZY)
   @JoinColumn(name = "INSTITUTE")
-  Institute institute;
+  InstituteEntity institute;
 
   @Temporal(TemporalType.DATE)
   @Column(name = "DATE_OF_BIRTH")
@@ -127,7 +127,7 @@ public class VOMSPerson implements Serializable {
   Date processingEndDate;
 
   @OneToMany(mappedBy = "vomsPerson", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  Set<Participation> participations = new HashSet<Participation>();
+  Set<ParticipationEntity> participations = new HashSet<ParticipationEntity>();
 
   /**
    * @return the cernId
@@ -452,7 +452,7 @@ public class VOMSPerson implements Serializable {
   /**
    * @return the nationality1
    */
-  public Country getNationality1() {
+  public CountryEntity getNationality1() {
 
     return nationality1;
   }
@@ -460,7 +460,7 @@ public class VOMSPerson implements Serializable {
   /**
    * @param nationality1 the nationality1 to set
    */
-  public void setNationality1(Country nationality1) {
+  public void setNationality1(CountryEntity nationality1) {
 
     this.nationality1 = nationality1;
   }
@@ -468,7 +468,7 @@ public class VOMSPerson implements Serializable {
   /**
    * @return the institute
    */
-  public Institute getInstitute() {
+  public InstituteEntity getInstitute() {
 
     return institute;
   }
@@ -476,7 +476,7 @@ public class VOMSPerson implements Serializable {
   /**
    * @param institute the institute to set
    */
-  public void setInstitute(Institute institute) {
+  public void setInstitute(InstituteEntity institute) {
 
     this.institute = institute;
   }
@@ -548,7 +548,7 @@ public class VOMSPerson implements Serializable {
   /**
    * @return the participations
    */
-  public Set<Participation> getParticipations() {
+  public Set<ParticipationEntity> getParticipations() {
 
     return participations;
   }
@@ -556,7 +556,7 @@ public class VOMSPerson implements Serializable {
   /**
    * @param participations the participations to set
    */
-  public void setParticipations(Set<Participation> participations) {
+  public void setParticipations(Set<ParticipationEntity> participations) {
 
     this.participations = participations;
   }
@@ -589,7 +589,7 @@ public class VOMSPerson implements Serializable {
       return false;
     if (getClass() != obj.getClass())
       return false;
-    VOMSPerson other = (VOMSPerson) obj;
+    VOPersonEntity other = (VOPersonEntity) obj;
     if (id == null) {
       if (other.id != null)
         return false;
@@ -607,7 +607,7 @@ public class VOMSPerson implements Serializable {
   public String toString() {
 
     StringBuilder builder = new StringBuilder();
-    builder.append("VOMSPerson [id=")
+    builder.append("VOPersonEntity [id=")
       .append(id)
       .append(", firstName=")
       .append(firstName)
@@ -621,13 +621,13 @@ public class VOMSPerson implements Serializable {
     return builder.toString();
   }
 
-  public Participation getLastExpiredParticipationForExperiment(String experimentName) {
+  public ParticipationEntity getLastExpiredParticipationForExperiment(String experimentName) {
 
-    Participation lastExpiredParticipation = null;
+    ParticipationEntity lastExpiredParticipation = null;
 
     Date now = new Date();
 
-    for (Participation p : participations) {
+    for (ParticipationEntity p : participations) {
 
       if (p.getExperiment().getName().equals(experimentName)) {
         if (p.getEndDate() != null && p.getEndDate().before(now)) {
@@ -643,13 +643,13 @@ public class VOMSPerson implements Serializable {
 
   }
 
-  public Set<Participation> getValidParticipations() {
+  public Set<ParticipationEntity> getValidParticipations() {
 
     Date now = new Date();
 
-    HashSet<Participation> result = new HashSet<Participation>();
+    HashSet<ParticipationEntity> result = new HashSet<ParticipationEntity>();
 
-    for (Participation p : participations) {
+    for (ParticipationEntity p : participations) {
 
       if (p.getStartDate().before(now)) {
 
@@ -669,10 +669,10 @@ public class VOMSPerson implements Serializable {
     return getValidParticipationForExperiment(experimentName) != null;
   }
 
-  public Participation getValidParticipationForExperiment(String experimentName) {
+  public ParticipationEntity getValidParticipationForExperiment(String experimentName) {
 
     Date now = new Date();
-    for (Participation p : participations) {
+    for (ParticipationEntity p : participations) {
 
       if (p.getExperiment().getName().equals(experimentName)) {
 

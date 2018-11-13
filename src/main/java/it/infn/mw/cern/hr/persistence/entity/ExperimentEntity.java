@@ -13,14 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package it.infn.mw.cern.hr.persistence.model;
+package it.infn.mw.cern.hr.persistence.entity;
 
 import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -28,7 +26,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "EXPERIMENTS")
-public class Experiment implements Serializable {
+public class ExperimentEntity implements Serializable {
 
   /**
 	 * 
@@ -36,7 +34,6 @@ public class Experiment implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   @Column(length = 60, name = "NAME")
   String name;
 
@@ -48,7 +45,7 @@ public class Experiment implements Serializable {
 
   @ManyToOne(optional = true)
   @JoinColumn(name = "PARENT_EXPERIMENT")
-  Experiment parent;
+  ExperimentEntity parent;
 
   @Column(name = "BEAM", length = 20)
   String beam;
@@ -101,12 +98,12 @@ public class Experiment implements Serializable {
     this.status = status;
   }
 
-  public Experiment getParent() {
+  public ExperimentEntity getParent() {
 
     return parent;
   }
 
-  public void setParent(Experiment parent) {
+  public void setParent(ExperimentEntity parent) {
 
     this.parent = parent;
   }
@@ -209,7 +206,7 @@ public class Experiment implements Serializable {
       return false;
     if (getClass() != obj.getClass())
       return false;
-    Experiment other = (Experiment) obj;
+    ExperimentEntity other = (ExperimentEntity) obj;
     if (name == null) {
       if (other.name != null)
         return false;
@@ -227,7 +224,7 @@ public class Experiment implements Serializable {
   public String toString() {
 
     StringBuilder builder = new StringBuilder();
-    builder.append("Experiment [name=").append(name).append(", status=")
+    builder.append("ExperimentEntity [name=").append(name).append(", status=")
       .append(status).append(", mnemonic=").append(mnemonic).append(", email=")
       .append(email).append("]");
     return builder.toString();

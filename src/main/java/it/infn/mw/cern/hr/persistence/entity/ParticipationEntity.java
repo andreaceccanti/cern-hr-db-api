@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package it.infn.mw.cern.hr.persistence.model;
+package it.infn.mw.cern.hr.persistence.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -30,7 +30,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "PERSON_PARTICIPATION")
-public class Participation implements Serializable {
+public class ParticipationEntity implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
@@ -52,15 +52,15 @@ public class Participation implements Serializable {
 
   @ManyToOne
   @JoinColumn(name = "PERSON_ID", insertable = false, updatable = false)
-  VOMSPerson vomsPerson;
+  VOPersonEntity vomsPerson;
 
   @ManyToOne
   @JoinColumn(name = "INSTITUTE", insertable = false, updatable = false)
-  Institute institute;
+  InstituteEntity institute;
 
   @ManyToOne
   @JoinColumn(name = "EXPERIMENT", insertable = false, updatable = false)
-  Experiment experiment;
+  ExperimentEntity experiment;
 
   // FIXME: This subexperiment is expressed as a name here since this column can
   // contain the value '-' which doesn't have
@@ -325,7 +325,7 @@ public class Participation implements Serializable {
   /**
    * @return the vomsPerson
    */
-  public VOMSPerson getVomsPerson() {
+  public VOPersonEntity getVomsPerson() {
 
     return vomsPerson;
   }
@@ -334,7 +334,7 @@ public class Participation implements Serializable {
    * @param vomsPerson
    *          the vomsPerson to set
    */
-  public void setVomsPerson(VOMSPerson vomsPerson) {
+  public void setVomsPerson(VOPersonEntity vomsPerson) {
 
     this.vomsPerson = vomsPerson;
   }
@@ -342,7 +342,7 @@ public class Participation implements Serializable {
   /**
    * @return the institute
    */
-  public Institute getInstitute() {
+  public InstituteEntity getInstitute() {
 
     return institute;
   }
@@ -351,7 +351,7 @@ public class Participation implements Serializable {
    * @param institute
    *          the institute to set
    */
-  public void setInstitute(Institute institute) {
+  public void setInstitute(InstituteEntity institute) {
 
     this.institute = institute;
   }
@@ -359,7 +359,7 @@ public class Participation implements Serializable {
   /**
    * @return the experiment
    */
-  public Experiment getExperiment() {
+  public ExperimentEntity getExperiment() {
 
     return experiment;
   }
@@ -368,14 +368,14 @@ public class Participation implements Serializable {
    * @param experiment
    *          the experiment to set
    */
-  public void setExperiment(Experiment experiment) {
+  public void setExperiment(ExperimentEntity experiment) {
 
     this.experiment = experiment;
   }
 
   /**
    * @return
-   * @see it.infn.mw.cern.hr.persistence.model.Participation.Id#getStartDate()
+   * @see it.infn.mw.cern.hr.persistence.entity.ParticipationEntity.Id#getStartDate()
    */
   public Date getStartDate() {
 
@@ -415,7 +415,7 @@ public class Participation implements Serializable {
       return false;
     if (getClass() != obj.getClass())
       return false;
-    Participation other = (Participation) obj;
+    ParticipationEntity other = (ParticipationEntity) obj;
     if (id == null) {
       if (other.id != null)
         return false;
@@ -433,7 +433,7 @@ public class Participation implements Serializable {
   public String toString() {
 
     StringBuilder builder = new StringBuilder();
-    builder.append("Participation [endDate=").append(endDate)
+    builder.append("ParticipationEntity [endDate=").append(endDate)
       .append(", experiment=").append(experiment).append(", getStartDate()=")
       .append(getStartDate()).append("]");
     return builder.toString();

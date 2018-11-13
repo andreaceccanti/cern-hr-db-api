@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    platform: oracle
+    driver-class-name: ${HR_DB_ORACLE_DRIVER:oracle.jdbc.OracleDriver}
+    url: ${HR_DB_ORACLE_URL:jdbc:oracle:oci:@COLLECTSRV}
+    username: ${HR_DB_ORACLE_USERNAME:upgrade_12}
+    password: ${HR_DB_ORACLE_PASSWORD:pwd}

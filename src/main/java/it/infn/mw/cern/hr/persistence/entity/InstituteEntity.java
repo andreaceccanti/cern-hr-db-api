@@ -13,15 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package it.infn.mw.cern.hr.persistence.model;
+package it.infn.mw.cern.hr.persistence.entity;
 
 import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -29,7 +27,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "INSTITUTES")
-public class Institute implements Serializable {
+public class InstituteEntity implements Serializable {
 
   /**
 	 * 
@@ -37,7 +35,6 @@ public class Institute implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   @Column(name = "CODE", length = 6)
   String code;
 
@@ -52,18 +49,18 @@ public class Institute implements Serializable {
 
   @ManyToOne(optional = true)
   @JoinColumn(name = "PARENT_INSTITUTE")
-  Institute parent;
+  InstituteEntity parent;
 
   @ManyToOne(optional = true)
   @JoinColumn(name = "ADDRESS_ID")
-  InstituteAddress address;
+  InstituteAddressEntity address;
 
   @Column(name = "INSTITUTE_TYPE", length = 2)
   String type;
 
   @ManyToOne(optional = true, fetch = FetchType.LAZY)
   @JoinColumn(name = "COUNTRY_CODE")
-  Country country;
+  CountryEntity country;
 
   @Column(name = "PLACE", length = 30, nullable = false)
   String place;
@@ -117,12 +114,12 @@ public class Institute implements Serializable {
     this.name = name;
   }
 
-  public Institute getParent() {
+  public InstituteEntity getParent() {
 
     return parent;
   }
 
-  public void setParent(Institute parent) {
+  public void setParent(InstituteEntity parent) {
 
     this.parent = parent;
   }
@@ -137,12 +134,12 @@ public class Institute implements Serializable {
     this.type = type;
   }
 
-  public Country getCountry() {
+  public CountryEntity getCountry() {
 
     return country;
   }
 
-  public void setCountry(Country country) {
+  public void setCountry(CountryEntity country) {
 
     this.country = country;
   }
@@ -224,7 +221,7 @@ public class Institute implements Serializable {
       return false;
     if (getClass() != obj.getClass())
       return false;
-    Institute other = (Institute) obj;
+    InstituteEntity other = (InstituteEntity) obj;
     if (country == null) {
       if (other.country != null)
         return false;
@@ -277,7 +274,7 @@ public class Institute implements Serializable {
   public String toString() {
 
     StringBuilder builder = new StringBuilder();
-    builder.append("Institute [code=").append(code).append(", name=")
+    builder.append("InstituteEntity [code=").append(code).append(", name=")
       .append(name).append(", englishName=").append(englishName)
       .append(", originalName=").append(originalName).append("]");
     return builder.toString();

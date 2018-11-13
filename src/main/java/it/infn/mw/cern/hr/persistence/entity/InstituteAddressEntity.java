@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package it.infn.mw.cern.hr.persistence.model;
+package it.infn.mw.cern.hr.persistence.entity;
 
 import java.io.Serializable;
 
@@ -26,7 +26,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "INSTITUTE_ADDRESSES")
-public class InstituteAddress implements Serializable {
+public class InstituteAddressEntity implements Serializable {
 
   /**
 	 * 
@@ -56,7 +56,7 @@ public class InstituteAddress implements Serializable {
   @Column(name = "SUFFIX", length = 15)
   String suffix;
 
-  public InstituteAddress() {
+  public InstituteAddressEntity() {
 
   }
 
@@ -165,7 +165,7 @@ public class InstituteAddress implements Serializable {
       return false;
     if (getClass() != obj.getClass())
       return false;
-    InstituteAddress other = (InstituteAddress) obj;
+    InstituteAddressEntity other = (InstituteAddressEntity) obj;
     if (countryCode == null) {
       if (other.countryCode != null)
         return false;
@@ -208,7 +208,7 @@ public class InstituteAddress implements Serializable {
   public String toString() {
 
     StringBuilder builder = new StringBuilder();
-    builder.append("InstituteAddress [id=").append(id).append(", countryCode=")
+    builder.append("InstituteAddressEntity [id=").append(id).append(", countryCode=")
       .append(countryCode).append(", place=").append(place)
       .append(", postBox=").append(postBox).append(", postalCode=")
       .append(postalCode).append(", street=").append(street)

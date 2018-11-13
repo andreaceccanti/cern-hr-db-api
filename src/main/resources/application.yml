@@ -1,8 +1,35 @@
 spring:
   jpa:
-    open-in-view: false
+    open-in-view: true
   main:
     banner-mode: "off"
   
   flyway:
     enabled: false
+  
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+        - info
+        - health
+        - metrics
+        - prometheus
+        
+  endpoint:
+    health:
+      enabled: true
+    info:
+      enabled: true
+    metrics:
+      enabled: true
+
+service:
+  api-user:
+    username: user
+    password: pwd
+    
+  metrics-user:
+    username: metrics
+    password: pwd

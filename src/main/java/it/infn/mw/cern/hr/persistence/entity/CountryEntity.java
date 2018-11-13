@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package it.infn.mw.cern.hr.persistence.model;
+package it.infn.mw.cern.hr.persistence.entity;
 
 import java.io.Serializable;
 
@@ -27,7 +27,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "COUNTRIES")
-public class Country implements Serializable {
+public class CountryEntity implements Serializable {
 
   /**
    * 
@@ -51,7 +51,7 @@ public class Country implements Serializable {
   @Column(nullable = false, length = 1, name = "BEFORE_PLACE_OR_COUNTRY")
   String beforePlaceOrCountry;
 
-  public Country() {
+  public CountryEntity() {
 
   }
 
@@ -124,7 +124,7 @@ public class Country implements Serializable {
       return false;
     if (getClass() != obj.getClass())
       return false;
-    Country other = (Country) obj;
+    CountryEntity other = (CountryEntity) obj;
     if (isoCode == null) {
       if (other.isoCode != null)
         return false;
