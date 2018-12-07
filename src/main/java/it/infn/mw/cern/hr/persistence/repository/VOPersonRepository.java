@@ -12,7 +12,6 @@ import it.infn.mw.cern.hr.persistence.entity.VOPersonEntity;
 
 public interface VOPersonRepository extends PagingAndSortingRepository<VOPersonEntity, Long> {
 
-  Optional<VOPersonEntity> findByCernId(Long cernId);
 
   @Query("select p from VOPersonEntity p where lower(p.email) = lower(:email) or lower(p.physicalEmail) = lower(:email)")
   Optional<VOPersonEntity> findByEmail(String email);

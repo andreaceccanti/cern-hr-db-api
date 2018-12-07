@@ -41,11 +41,11 @@ public class VOPersonController {
     this.clock = clock;
   }
 
-  @GetMapping("/{cernId}")
-  public VOPersonDTO findByCernId(@PathVariable Long cernId) {
-    VOPersonEntity e = repo.findByCernId(cernId)
+  @GetMapping("/{personId}")
+  public VOPersonDTO findByPersonId(@PathVariable Long personId) {
+    VOPersonEntity e = repo.findById(personId)
       .orElseThrow(ErrorSuppliers
-        .notFoundError(String.format("VO person not found for cern id: %s", cernId)));
+        .notFoundError(String.format("VO person not found for person id: %s", personId)));
 
     return mapper.entityToDto(e);
   }
