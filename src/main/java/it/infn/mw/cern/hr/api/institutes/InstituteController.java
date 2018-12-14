@@ -58,9 +58,10 @@ public class InstituteController {
 
     return mapper.entityToDto(e);
   }
+  
 
   @GetMapping
-  ListResponseDTO<InstituteDTO> getExperiments(@RequestParam(required = false) final Integer count,
+  ListResponseDTO<InstituteDTO> getInstitutes(@RequestParam(required = false) final Integer count,
       @RequestParam(required = false) final Integer startIndex) {
 
     final PageRequest pageRequest =

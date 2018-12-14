@@ -18,6 +18,7 @@ package it.infn.mw.cern.hr.persistence.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
@@ -29,7 +30,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "PERSON_PARTICIPATION")
+@Table(name = "GDT2511_VOMS_PARTICIPATION")
 public class ParticipationEntity implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -41,42 +42,17 @@ public class ParticipationEntity implements Serializable {
   @Column(name = "END_DATE")
   private Date endDate;
 
-  @Column(name = "GREYBOOK", length = 1)
-  private String greybook;
-
-  @Column(name = "TELEPHONE_NUMBER", length = 30)
-  String telephoneNumber;
-
-  @Column(name = "FAX_NUMBER", length = 30)
-  String faxNumber;
-
   @ManyToOne
   @JoinColumn(name = "PERSON_ID", insertable = false, updatable = false)
-  VOPersonEntity vomsPerson;
+  VOPersonEntity voPerson;
 
   @ManyToOne
   @JoinColumn(name = "INSTITUTE", insertable = false, updatable = false)
   InstituteEntity institute;
 
-  @ManyToOne
-  @JoinColumn(name = "EXPERIMENT", insertable = false, updatable = false)
-  ExperimentEntity experiment;
-
-  // FIXME: This subexperiment is expressed as a name here since this column can
-  // contain the value '-' which doesn't have
-  // a corresponding entry in the EXPERIMENTS table. This seems broken
-  // referential integrity in the ORGDB voms view, so it's
-  // safer to just put here the subexperiment name (mostly null, btw) and let
-  // interested people do the join by hand.
-  @Column(name = "SUBEXPERIMENT")
-  String subexperimentName;
-
   @Embeddable
   public static class Id implements Serializable {
 
-    /**
-		 * 
-		 */
     private static final long serialVersionUID = 1L;
 
     @Column(name = "PERSON_ID")
@@ -86,14 +62,14 @@ public class ParticipationEntity implements Serializable {
     private String instituteId;
 
     @Column(name = "EXPERIMENT")
-    private String experimentId;
+    private String experiment;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "START_DATE")
     private Date startDate;
 
     public Id() {
-
+      // empty ctor
     }
 
     /**
@@ -105,8 +81,7 @@ public class ParticipationEntity implements Serializable {
     }
 
     /**
-     * @param personId
-     *          the personId to set
+     * @param personId the personId to set
      */
     public void setPersonId(Long personId) {
 
@@ -122,29 +97,20 @@ public class ParticipationEntity implements Serializable {
     }
 
     /**
-     * @param instituteId
-     *          the instituteId to set
+     * @param instituteId the instituteId to set
      */
     public void setInstituteId(String instituteId) {
 
       this.instituteId = instituteId;
     }
 
-    /**
-     * @return the experimentId
-     */
-    public String getExperimentId() {
 
-      return experimentId;
+    public String getExperiment() {
+      return experiment;
     }
 
-    /**
-     * @param experimentId
-     *          the experimentId to set
-     */
-    public void setExperimentId(String experimentId) {
-
-      this.experimentId = experimentId;
+    public void setExperiment(String experiment) {
+      this.experiment = experiment;
     }
 
     /**
@@ -156,42 +122,28 @@ public class ParticipationEntity implements Serializable {
     }
 
     /**
-     * @param startDate
-     *          the startDate to set
+     * @param startDate the startDate to set
      */
     public void setStartDate(Date startDate) {
 
       this.startDate = startDate;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#hashCode()
-     */
     @Override
+    @Generated("eclipse")
     public int hashCode() {
-
       final int prime = 31;
       int result = 1;
-      result = prime * result
-        + ((experimentId == null) ? 0 : experimentId.hashCode());
-      result = prime * result
-        + ((instituteId == null) ? 0 : instituteId.hashCode());
+      result = prime * result + ((experiment == null) ? 0 : experiment.hashCode());
+      result = prime * result + ((instituteId == null) ? 0 : instituteId.hashCode());
       result = prime * result + ((personId == null) ? 0 : personId.hashCode());
-      result = prime * result
-        + ((startDate == null) ? 0 : startDate.hashCode());
+      result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
       return result;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
+    @Generated("eclipse")
     public boolean equals(Object obj) {
-
       if (this == obj)
         return true;
       if (obj == null)
@@ -199,10 +151,10 @@ public class ParticipationEntity implements Serializable {
       if (getClass() != obj.getClass())
         return false;
       Id other = (Id) obj;
-      if (experimentId == null) {
-        if (other.experimentId != null)
+      if (experiment == null) {
+        if (other.experiment != null)
           return false;
-      } else if (!experimentId.equals(other.experimentId))
+      } else if (!experiment.equals(other.experiment))
         return false;
       if (instituteId == null) {
         if (other.instituteId != null)
@@ -222,19 +174,6 @@ public class ParticipationEntity implements Serializable {
       return true;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-
-      StringBuilder builder = new StringBuilder();
-      builder.append("Id [personId=").append(personId).append("]");
-      return builder.toString();
-    }
-
   }
 
   /**
@@ -246,8 +185,7 @@ public class ParticipationEntity implements Serializable {
   }
 
   /**
-   * @param id
-   *          the id to set
+   * @param id the id to set
    */
   public void setId(Id id) {
 
@@ -263,80 +201,20 @@ public class ParticipationEntity implements Serializable {
   }
 
   /**
-   * @param endDate
-   *          the endDate to set
+   * @param endDate the endDate to set
    */
   public void setEndDate(Date endDate) {
 
     this.endDate = endDate;
   }
 
-  /**
-   * @return the greybook
-   */
-  public String getGreybook() {
 
-    return greybook;
+  public VOPersonEntity getVoPerson() {
+    return voPerson;
   }
 
-  /**
-   * @param greybook
-   *          the greybook to set
-   */
-  public void setGreybook(String greybook) {
-
-    this.greybook = greybook;
-  }
-
-  /**
-   * @return the telephoneNumber
-   */
-  public String getTelephoneNumber() {
-
-    return telephoneNumber;
-  }
-
-  /**
-   * @param telephoneNumber
-   *          the telephoneNumber to set
-   */
-  public void setTelephoneNumber(String telephoneNumber) {
-
-    this.telephoneNumber = telephoneNumber;
-  }
-
-  /**
-   * @return the faxNumber
-   */
-  public String getFaxNumber() {
-
-    return faxNumber;
-  }
-
-  /**
-   * @param faxNumber
-   *          the faxNumber to set
-   */
-  public void setFaxNumber(String faxNumber) {
-
-    this.faxNumber = faxNumber;
-  }
-
-  /**
-   * @return the vomsPerson
-   */
-  public VOPersonEntity getVomsPerson() {
-
-    return vomsPerson;
-  }
-
-  /**
-   * @param vomsPerson
-   *          the vomsPerson to set
-   */
-  public void setVomsPerson(VOPersonEntity vomsPerson) {
-
-    this.vomsPerson = vomsPerson;
+  public void setVoPerson(VOPersonEntity voPerson) {
+    this.voPerson = voPerson;
   }
 
   /**
@@ -348,30 +226,13 @@ public class ParticipationEntity implements Serializable {
   }
 
   /**
-   * @param institute
-   *          the institute to set
+   * @param institute the institute to set
    */
   public void setInstitute(InstituteEntity institute) {
 
     this.institute = institute;
   }
 
-  /**
-   * @return the experiment
-   */
-  public ExperimentEntity getExperiment() {
-
-    return experiment;
-  }
-
-  /**
-   * @param experiment
-   *          the experiment to set
-   */
-  public void setExperiment(ExperimentEntity experiment) {
-
-    this.experiment = experiment;
-  }
 
   /**
    * @return
@@ -385,6 +246,16 @@ public class ParticipationEntity implements Serializable {
   public void setStartDate(Date startDate) {
 
     id.setStartDate(startDate);
+  }
+
+
+
+  public String getExperiment() {
+    return id.getExperiment();
+  }
+
+  public void setExperiment(String experiment) {
+    id.setExperiment(experiment);
   }
 
   /*
@@ -424,18 +295,18 @@ public class ParticipationEntity implements Serializable {
     return true;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#toString()
-   */
+
   @Override
   public String toString() {
 
     StringBuilder builder = new StringBuilder();
-    builder.append("ParticipationEntity [endDate=").append(endDate)
-      .append(", experiment=").append(experiment).append(", getStartDate()=")
-      .append(getStartDate()).append("]");
+    builder.append("ParticipationEntity [endDate=")
+      .append(endDate)
+      .append(", experiment=")
+      .append(getExperiment())
+      .append(", getStartDate()=")
+      .append(getStartDate())
+      .append("]");
     return builder.toString();
   }
 

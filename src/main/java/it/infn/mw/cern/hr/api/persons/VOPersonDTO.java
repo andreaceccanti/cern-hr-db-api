@@ -17,54 +17,30 @@ package it.infn.mw.cern.hr.api.persons;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 
-import java.util.Date;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import it.infn.mw.cern.hr.api.countries.CountryDTO;
-import it.infn.mw.cern.hr.api.institutes.InstituteDTO;
-
 @JsonInclude(NON_EMPTY)
 public class VOPersonDTO {
 
-  Long id;
-  Long cernId;
-
-  String name;
-  String firstName;
-
-  String email;
-  String physicalEmail;
-
-  String department;
-  String group;
-  String sector;
-  String building;
-  String floor;
-  String room;
-  String tel1;
-  String tel2;
-  String tel3;
-  String portablePhone;
-  String beeper;
-  String firm;
-  String atCern;
-  String personClass;
-  Boolean supervisorOfExternalStuff;
-
-  CountryDTO nationality1;
-  InstituteDTO institute;
-
-  Date dateOfBirth;
-  Date processingStartDate;
-  Date processingEndDate;
-  
-  Set<ParticipationDTO> participations;
-
-  public VOPersonDTO() {
-    // empty ctor
-  }
+  private Long id;
+  private String name;
+  private String firstName;
+  private String department;
+  private String group;
+  private String sector;
+  private String building;
+  private String floor;
+  private String room;
+  private String tel1;
+  private String tel2;
+  private String tel3;
+  private String portablePhone;
+  private String beeper;
+  private String email;
+  private String physicalEmail;
+  private Set<ParticipationDTO> participations;
 
   public Long getId() {
     return id;
@@ -72,14 +48,6 @@ public class VOPersonDTO {
 
   public void setId(Long id) {
     this.id = id;
-  }
-
-  public Long getCernId() {
-    return cernId;
-  }
-
-  public void setCernId(Long cernId) {
-    this.cernId = cernId;
   }
 
   public String getName() {
@@ -96,22 +64,6 @@ public class VOPersonDTO {
 
   public void setFirstName(String firstName) {
     this.firstName = firstName;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public String getPhysicalEmail() {
-    return physicalEmail;
-  }
-
-  public void setPhysicalEmail(String physicalEmail) {
-    this.physicalEmail = physicalEmail;
   }
 
   public String getDepartment() {
@@ -202,76 +154,20 @@ public class VOPersonDTO {
     this.beeper = beeper;
   }
 
-  public String getFirm() {
-    return firm;
+  public String getEmail() {
+    return email;
   }
 
-  public void setFirm(String firm) {
-    this.firm = firm;
+  public void setEmail(String email) {
+    this.email = email;
   }
 
-  public String getAtCern() {
-    return atCern;
+  public String getPhysicalEmail() {
+    return physicalEmail;
   }
 
-  public void setAtCern(String atCern) {
-    this.atCern = atCern;
-  }
-
-  public String getPersonClass() {
-    return personClass;
-  }
-
-  public void setPersonClass(String personClass) {
-    this.personClass = personClass;
-  }
-
-  public Boolean getSupervisorOfExternalStuff() {
-    return supervisorOfExternalStuff;
-  }
-
-  public void setSupervisorOfExternalStuff(Boolean supervisorOfExternalStuff) {
-    this.supervisorOfExternalStuff = supervisorOfExternalStuff;
-  }
-
-  public CountryDTO getNationality1() {
-    return nationality1;
-  }
-
-  public void setNationality1(CountryDTO nationality1) {
-    this.nationality1 = nationality1;
-  }
-
-  public InstituteDTO getInstitute() {
-    return institute;
-  }
-
-  public void setInstitute(InstituteDTO institute) {
-    this.institute = institute;
-  }
-
-  public Date getDateOfBirth() {
-    return dateOfBirth;
-  }
-
-  public void setDateOfBirth(Date dateOfBirth) {
-    this.dateOfBirth = dateOfBirth;
-  }
-
-  public Date getProcessingStartDate() {
-    return processingStartDate;
-  }
-
-  public void setProcessingStartDate(Date processingStartDate) {
-    this.processingStartDate = processingStartDate;
-  }
-
-  public Date getProcessingEndDate() {
-    return processingEndDate;
-  }
-
-  public void setProcessingEndDate(Date processingEndDate) {
-    this.processingEndDate = processingEndDate;
+  public void setPhysicalEmail(String physicalEmail) {
+    this.physicalEmail = physicalEmail;
   }
 
   public Set<ParticipationDTO> getParticipations() {
@@ -281,5 +177,4 @@ public class VOPersonDTO {
   public void setParticipations(Set<ParticipationDTO> participations) {
     this.participations = participations;
   }
-  
 }

@@ -22,6 +22,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,6 +37,7 @@ import it.infn.mw.cern.hr.api.Constants;
 import it.infn.mw.cern.hr.api.dto.ListResponseDTO;
 import it.infn.mw.cern.hr.api.utils.ErrorSuppliers;
 import it.infn.mw.cern.hr.api.utils.PageUtils;
+import it.infn.mw.cern.hr.persistence.entity.ParticipationEntity;
 import it.infn.mw.cern.hr.persistence.entity.VOPersonEntity;
 import it.infn.mw.cern.hr.persistence.repository.VOPersonRepository;
 
@@ -48,12 +50,16 @@ public class VOPersonController {
 
   final VOPersonRepository repo;
   final VOPersonMapper mapper;
+  final ParticipationMapper participationMapper;
   final Clock clock;
 
-  public VOPersonController(VOPersonRepository repo, VOPersonMapper mapper, Clock clock) {
+  public VOPersonController(VOPersonRepository repo, VOPersonMapper mapper, ParticipationMapper pm,
+      Clock clock) {
     this.repo = repo;
     this.mapper = mapper;
+    this.participationMapper = pm;
     this.clock = clock;
+
   }
 
   @GetMapping("/{personId}")
@@ -111,6 +117,18 @@ public class VOPersonController {
     response
       .resources(pagedResults.getContent().stream().map(mapper::entityToDto).collect(toList()));
     return response.build();
+  }
+
+  @GetMapping("/participation/{experiment}/valid/{personId}")
+  public boolean hasValidExperimentParticipationForId(@PathVariable String experiment,
+      @PathVariable Long personId) {
+
+    final Date currentTime = Date.from(clock.instant());
+
+    Optional<ParticipationEntity> p =
+        repo.findValidExperimentParticipationByPersonId(experiment, currentTime, personId);
+
+    return p.isPresent();
   }
 
   @GetMapping("/participation/{experiment}/expired")

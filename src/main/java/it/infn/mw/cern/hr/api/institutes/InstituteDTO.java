@@ -22,34 +22,24 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(NON_EMPTY)
 public class InstituteDTO {
 
-  String code;
-  
+  String id;
+
   String name;
-  
-  String originalName;
-  
-  String englishName;
-  
-  InstituteDTO parent;
-  
-  String type;
-  
-  String place;
-  
-  String status;
-  
-  String library;
-  
+
+  String town;
+
+  String country;
+
   public InstituteDTO() {
     // empty ctor
   }
 
-  public String getCode() {
-    return code;
+  public String getId() {
+    return id;
   }
 
-  public void setCode(String code) {
-    this.code = code;
+  public void setId(String id) {
+    this.id = id;
   }
 
   public String getName() {
@@ -60,60 +50,20 @@ public class InstituteDTO {
     this.name = name;
   }
 
-  public String getOriginalName() {
-    return originalName;
+  public String getTown() {
+    return town;
   }
 
-  public void setOriginalName(String originalName) {
-    this.originalName = originalName;
+  public void setTown(String town) {
+    this.town = town;
   }
 
-  public String getEnglishName() {
-    return englishName;
+  public String getCountry() {
+    return country;
   }
 
-  public void setEnglishName(String englishName) {
-    this.englishName = englishName;
+  public void setCountry(String country) {
+    this.country = country;
   }
 
-  public InstituteDTO getParent() {
-    return parent;
-  }
-
-  public void setParent(InstituteDTO parent) {
-    this.parent = parent;
-  }
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
-
-  public String getPlace() {
-    return place;
-  }
-
-  public void setPlace(String place) {
-    this.place = place;
-  }
-
-  public String getStatus() {
-    return status;
-  }
-
-  public void setStatus(String status) {
-    this.status = status;
-  }
-
-  public String getLibrary() {
-    return library;
-  }
-
-  public void setLibrary(String library) {
-    this.library = library;
-  }
-  
 }

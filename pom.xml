@@ -22,7 +22,7 @@
 
   <groupId>it.infn.mw.cern.hr</groupId>
   <artifactId>hr-db-api</artifactId>
-  <version>0.1-SNAPSHOT</version>
+  <version>0.2-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>hr-db-api</name>
@@ -123,6 +123,8 @@
           <header>LICENSE</header>
           <useDefaultExcludes>true</useDefaultExcludes>
           <excludes>
+            <exclude>.factorypath</exclude>
+            <exclude>create.sql</exclude>
             <exclude>**/Dockerfile</exclude>
             <exclude>**/*.csv</exclude>
           </excludes>

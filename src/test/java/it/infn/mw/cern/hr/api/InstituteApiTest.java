@@ -54,7 +54,7 @@ public class InstituteApiTest {
   public void getInstitutesWorks() throws Exception {
     mvc.perform(get(InstituteController.RESOURCE))
       .andExpect(status().isOk())
-      .andExpect(jsonPath("$.totalResults", is(1000)))
+      .andExpect(jsonPath("$.totalResults", is(100)))
       .andExpect(jsonPath("$.itemsPerPage", is(100)))
       .andExpect(jsonPath("$.startIndex", is(0)));
   }

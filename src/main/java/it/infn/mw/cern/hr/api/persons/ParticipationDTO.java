@@ -21,38 +21,19 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import it.infn.mw.cern.hr.api.experiments.ExperimentDTO;
 import it.infn.mw.cern.hr.api.institutes.InstituteDTO;
 
 @JsonInclude(NON_EMPTY)
 public class ParticipationDTO {
 
-  VOPersonDTO voPerson;
-
-  ExperimentDTO experiment;
   InstituteDTO institute;
+  String experiment;
 
   Date startDate;
   Date endDate;
 
   public ParticipationDTO() {
     // empty ctor
-  }
-
-  public VOPersonDTO getVoPerson() {
-    return voPerson;
-  }
-
-  public void setVoPerson(VOPersonDTO voPerson) {
-    this.voPerson = voPerson;
-  }
-
-  public ExperimentDTO getExperiment() {
-    return experiment;
-  }
-
-  public void setExperiment(ExperimentDTO experiment) {
-    this.experiment = experiment;
   }
 
   public InstituteDTO getInstitute() {
@@ -79,7 +60,11 @@ public class ParticipationDTO {
     this.endDate = endDate;
   }
 
-  
+  public String getExperiment() {
+    return experiment;
+  }
 
-
+  public void setExperiment(String experiment) {
+    this.experiment = experiment;
+  }
 }

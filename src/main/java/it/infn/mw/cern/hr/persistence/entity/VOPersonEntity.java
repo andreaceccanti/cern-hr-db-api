@@ -16,7 +16,6 @@
 package it.infn.mw.cern.hr.persistence.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,11 +30,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "VOMS_PERSONS")
+@Table(name = "GDT2511_VOMS_PERSONS")
 public class VOPersonEntity implements Serializable {
 
   /**
@@ -44,106 +41,62 @@ public class VOPersonEntity implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "PERSON_ID")
-  Long id;
-
-  @Column(name = "IDENT", length = 7)
-  Long cernId;
+  private Long id;
 
   @Column(name = "NAME", length = 24, nullable = false)
-  String name;
+  private String name;
 
   @Column(name = "FIRST_NAME", length = 18, nullable = false)
-  String firstName;
+  private String firstName;
 
   @Column(name = "DEPART", length = 3)
-  String department;
+  private String department;
 
   @Column(name = "GRP", length = 3)
-  String group;
+  private String group;
 
   @Column(name = "SECT", length = 3)
-  String sector;
+  private String sector;
 
   @Column(name = "BUILDING", length = 10)
-  String building;
+  private String building;
 
   @Column(name = "FLOOR", length = 2)
-  String floor;
+  private String floor;
 
   @Column(name = "ROOM", length = 4)
-  String room;
+  private String room;
 
   @Column(name = "TEL_1", length = 5)
-  String tel1;
+  private String tel1;
 
   @Column(name = "TEL_2", length = 5)
-  String tel2;
+  private String tel2;
 
   @Column(name = "TEL_3", length = 5)
-  String tel3;
+  private String tel3;
 
   @Column(name = "PORTABLE_PHONE", length = 5)
-  String portablePhone;
+  private String portablePhone;
 
   @Column(name = "BEEP", length = 5)
-  String beeper;
+  private String beeper;
 
   @Column(name = "EMAIL", length = 60)
-  String email;
+  private String email;
 
   @Column(name = "PHYSICAL_EMAIL", length = 60)
-  String physicalEmail;
-
-  @Column(name = "FIRM", length = 14)
-  String firm;
-
-  @Column(name = "AT_CERN", nullable = false, length = 1)
-  String atCern;
-
-  @Column(name = "PERSON_CLASS", length = 6)
-  String personClass;
-
-  @Column(name = "SUPERVISOR_OF_EXTERNAL_STAFF")
-  Boolean supervisorOfExternalStuff;
-
-  @ManyToOne(optional = true, fetch = FetchType.LAZY)
-  @JoinColumn(name = "NATIONALITY1")
-  CountryEntity nationality1;
+  private String physicalEmail;
 
   @ManyToOne(optional = true, fetch = FetchType.LAZY)
   @JoinColumn(name = "INSTITUTE")
-  InstituteEntity institute;
+  private InstituteEntity institute;
 
-  @Temporal(TemporalType.DATE)
-  @Column(name = "DATE_OF_BIRTH")
-  Date dateOfBirth;
+  @OneToMany(mappedBy = "voPerson", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private Set<ParticipationEntity> participations = new HashSet<>();
 
-  @Column(name = "PROCESSING_START_DATE")
-  Date processingStartDate;
-
-  @Column(name = "PROCESSING_END_DATE")
-  Date processingEndDate;
-
-  @OneToMany(mappedBy = "vomsPerson", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  Set<ParticipationEntity> participations = new HashSet<ParticipationEntity>();
-
-  /**
-   * @return the cernId
-   */
-  public Long getCernId() {
-
-    return cernId;
-  }
-
-  /**
-   * @param cernId the cernId to set
-   */
-  public void setCernId(Long cernId) {
-
-    this.cernId = cernId;
-  }
 
   /**
    * @return the name
@@ -386,86 +339,6 @@ public class VOPersonEntity implements Serializable {
   }
 
   /**
-   * @return the firm
-   */
-  public String getFirm() {
-
-    return firm;
-  }
-
-  /**
-   * @param firm the firm to set
-   */
-  public void setFirm(String firm) {
-
-    this.firm = firm;
-  }
-
-  /**
-   * @return the atCern
-   */
-  public String getAtCern() {
-
-    return atCern;
-  }
-
-  /**
-   * @param atCern the atCern to set
-   */
-  public void setAtCern(String atCern) {
-
-    this.atCern = atCern;
-  }
-
-  /**
-   * @return the personClass
-   */
-  public String getPersonClass() {
-
-    return personClass;
-  }
-
-  /**
-   * @param personClass the personClass to set
-   */
-  public void setPersonClass(String personClass) {
-
-    this.personClass = personClass;
-  }
-
-  /**
-   * @return the supervisorOfExternalStuff
-   */
-  public Boolean getSupervisorOfExternalStuff() {
-
-    return supervisorOfExternalStuff;
-  }
-
-  /**
-   * @param supervisorOfExternalStuff the supervisorOfExternalStuff to set
-   */
-  public void setSupervisorOfExternalStuff(Boolean supervisorOfExternalStuff) {
-
-    this.supervisorOfExternalStuff = supervisorOfExternalStuff;
-  }
-
-  /**
-   * @return the nationality1
-   */
-  public CountryEntity getNationality1() {
-
-    return nationality1;
-  }
-
-  /**
-   * @param nationality1 the nationality1 to set
-   */
-  public void setNationality1(CountryEntity nationality1) {
-
-    this.nationality1 = nationality1;
-  }
-
-  /**
    * @return the institute
    */
   public InstituteEntity getInstitute() {
@@ -481,53 +354,6 @@ public class VOPersonEntity implements Serializable {
     this.institute = institute;
   }
 
-  /**
-   * @return the dateOfBirth
-   */
-  public Date getDateOfBirth() {
-
-    return dateOfBirth;
-  }
-
-  /**
-   * @param dateOfBirth the dateOfBirth to set
-   */
-  public void setDateOfBirth(Date dateOfBirth) {
-
-    this.dateOfBirth = dateOfBirth;
-  }
-
-  /**
-   * @return the processingStartDate
-   */
-  public Date getProcessingStartDate() {
-
-    return processingStartDate;
-  }
-
-  /**
-   * @param processingStartDate the processingStartDate to set
-   */
-  public void setProcessingStartDate(Date processingStartDate) {
-
-    this.processingStartDate = processingStartDate;
-  }
-
-  /**
-   * @return the processingEndDate
-   */
-  public Date getProcessingEndDate() {
-
-    return processingEndDate;
-  }
-
-  /**
-   * @param processingEndDate the processingEndDate to set
-   */
-  public void setProcessingEndDate(Date processingEndDate) {
-
-    this.processingEndDate = processingEndDate;
-  }
 
   /**
    * @return the id
@@ -561,28 +387,16 @@ public class VOPersonEntity implements Serializable {
     this.participations = participations;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#hashCode()
-   */
   @Override
   public int hashCode() {
-
     final int prime = 31;
     int result = 1;
     result = prime * result + ((id == null) ? 0 : id.hashCode());
     return result;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
   @Override
   public boolean equals(Object obj) {
-
     if (this == obj)
       return true;
     if (obj == null)
@@ -598,114 +412,4 @@ public class VOPersonEntity implements Serializable {
     return true;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString() {
-
-    StringBuilder builder = new StringBuilder();
-    builder.append("VOPersonEntity [id=")
-      .append(id)
-      .append(", firstName=")
-      .append(firstName)
-      .append(", name=")
-      .append(name)
-      .append(", email=")
-      .append(email)
-      .append(", physicalEmail=")
-      .append(physicalEmail)
-      .append("]");
-    return builder.toString();
-  }
-
-  public ParticipationEntity getLastExpiredParticipationForExperiment(String experimentName) {
-
-    ParticipationEntity lastExpiredParticipation = null;
-
-    Date now = new Date();
-
-    for (ParticipationEntity p : participations) {
-
-      if (p.getExperiment().getName().equals(experimentName)) {
-        if (p.getEndDate() != null && p.getEndDate().before(now)) {
-
-          if ((lastExpiredParticipation == null)
-              || (p.getEndDate().after(lastExpiredParticipation.getEndDate())))
-            lastExpiredParticipation = p;
-        }
-      }
-    }
-
-    return lastExpiredParticipation;
-
-  }
-
-  public Set<ParticipationEntity> getValidParticipations() {
-
-    Date now = new Date();
-
-    HashSet<ParticipationEntity> result = new HashSet<ParticipationEntity>();
-
-    for (ParticipationEntity p : participations) {
-
-      if (p.getStartDate().before(now)) {
-
-        if (p.getEndDate() == null)
-          result.add(p);
-        else if (p.getEndDate().after(now))
-          result.add(p);
-      }
-
-    }
-
-    return result;
-  }
-
-  public boolean hasValidParticipationForExperiment(String experimentName) {
-
-    return getValidParticipationForExperiment(experimentName) != null;
-  }
-
-  public ParticipationEntity getValidParticipationForExperiment(String experimentName) {
-
-    Date now = new Date();
-    for (ParticipationEntity p : participations) {
-
-      if (p.getExperiment().getName().equals(experimentName)) {
-
-        if (p.getStartDate().before(now)) {
-
-          if (p.getEndDate() == null)
-            return p;
-
-          if (p.getEndDate().after(now))
-            return p;
-        }
-      }
-    }
-
-    return null;
-  }
-
-  public String getAddressForVOMS() {
-
-    if ("Y".equals(atCern)) {
-
-      StringBuilder address = new StringBuilder();
-
-      address.append(getBuilding());
-      address.append("/");
-      address.append(getFloor());
-      address.append("-");
-      address.append(getRoom());
-
-      return address.toString();
-
-    }
-
-    return null;
-  }
 }
