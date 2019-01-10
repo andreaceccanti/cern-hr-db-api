@@ -23,7 +23,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "GDT2511_VOMS_INSTITUTES")
+@Table(name = "GDT2511_VOMS_INSTITUTES", schema="foundation_pub")
 public class InstituteEntity implements Serializable {
 
   private static final long serialVersionUID = 1L;

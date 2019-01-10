@@ -32,7 +32,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "GDT2511_VOMS_PERSONS")
+@Table(name = "GDT2511_VOMS_PERSONS", schema="foundation_pub")
 public class VOPersonEntity implements Serializable {
 
   /**

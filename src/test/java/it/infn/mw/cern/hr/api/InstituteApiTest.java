@@ -36,7 +36,7 @@ import it.infn.mw.cern.hr.api.institutes.InstituteController;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-@ActiveProfiles("dev")
+@ActiveProfiles("fixture")
 @WithMockUser(roles="API")
 public class InstituteApiTest {
 

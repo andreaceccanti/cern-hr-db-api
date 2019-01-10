@@ -30,7 +30,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "GDT2511_VOMS_PARTICIPATION")
+@Table(name = "GDT2511_VOMS_PARTICIPATION", schema="foundation_pub")
 public class ParticipationEntity implements Serializable {
 
   private static final long serialVersionUID = 1L;

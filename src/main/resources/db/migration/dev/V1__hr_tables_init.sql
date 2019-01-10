@@ -16,14 +16,14 @@
 
 create sequence hibernate_sequence start with 10000 increment by  1;
 
-create table gdt2511_voms_institutes (
+create table foundation_pub.gdt2511_voms_institutes (
   id varchar2(6 char) not null, 
   country varchar2(2 char), 
   longname varchar2(71 char), 
   town varchar2(30 char), 
   primary key (id));
   
-create table gdt2511_voms_participation (
+create table foundation_pub.gdt2511_voms_participation (
   experiment varchar2(255 char) not null, 
   institute varchar2(255 char) not null, 
   person_id number(19,0) not null, 
@@ -31,7 +31,7 @@ create table gdt2511_voms_participation (
   end_date date, 
   primary key (experiment, institute, person_id, start_date));
   
-create table gdt2511_voms_persons (
+create table foundation_pub.gdt2511_voms_persons (
   person_id number(19,0) not null, 
   beep varchar2(5 char), 
   building varchar2(10 char), 
@@ -51,9 +51,9 @@ create table gdt2511_voms_persons (
   institute varchar2(6 char), 
   primary key (person_id));
   
-alter table gdt2511_voms_participation 
-  add constraint FKlcgtm1ucef1ucuwwf66jb9c2s foreign key (institute) references gdt2511_voms_institutes;
-alter table gdt2511_voms_participation 
-  add constraint FKceig7hcrhlwruyenibgqa97pm foreign key (person_id) references gdt2511_voms_persons;
-alter table gdt2511_voms_persons
-  add constraint FKph4cdpqifjhmtsxdbk9t8ttrl foreign key (institute) references gdt2511_voms_institutes;
+alter table foundation_pub.gdt2511_voms_participation 
+  add constraint FKlcgtm1ucef1ucuwwf66jb9c2s foreign key (institute) references foundation_pub.gdt2511_voms_institutes;
+alter table foundation_pub.gdt2511_voms_participation 
+  add constraint FKceig7hcrhlwruyenibgqa97pm foreign key (person_id) references foundation_pub.gdt2511_voms_persons;
+alter table foundation_pub.gdt2511_voms_persons
+  add constraint FKph4cdpqifjhmtsxdbk9t8ttrl foreign key (institute) references foundation_pub.gdt2511_voms_institutes;
