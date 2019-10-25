@@ -233,11 +233,7 @@ public class ParticipationEntity implements Serializable {
     this.institute = institute;
   }
 
-
-  /**
-   * @return
-   * @see it.infn.mw.cern.hr.persistence.entity.ParticipationEntity.Id#getStartDate()
-   */
+  
   public Date getStartDate() {
 
     return id.getStartDate();
@@ -247,8 +243,6 @@ public class ParticipationEntity implements Serializable {
 
     id.setStartDate(startDate);
   }
-
-
 
   public String getExperiment() {
     return id.getExperiment();

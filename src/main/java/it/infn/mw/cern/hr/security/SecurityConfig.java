@@ -17,6 +17,7 @@ package it.infn.mw.cern.hr.security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.actuate.info.InfoEndpoint;
@@ -34,6 +35,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.access.AccessDeniedHandler;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import it.infn.mw.cern.hr.api.Role;
 import it.infn.mw.cern.hr.config.ServiceConfigurationProperties;
@@ -69,6 +73,13 @@ public class SecurityConfig {
   @Order(1000)
   public static class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    ObjectMapper mapper;
+
+    public AccessDeniedHandler accessDeniedHandler() {
+      return new ApiAccessDeniedHandler(mapper);
+    }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
       return new BCryptPasswordEncoder();
@@ -101,7 +112,11 @@ public class SecurityConfig {
         .mvcMatchers("/api/**")
         .hasRole(Role.API.name())
         .and()
-        .httpBasic();
+        .httpBasic()
+        .and()
+        .exceptionHandling()
+        .accessDeniedHandler(accessDeniedHandler())
+        .and().csrf().disable();
     }
   }
 }
