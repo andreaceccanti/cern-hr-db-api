@@ -13,16 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package it.infn.mw.cern.hr.api.institutes;
+package it.infn.mw.cern.hr.api.mappers;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 
-import it.infn.mw.cern.hr.persistence.entity.InstituteEntity;
+import it.infn.mw.cern.hr.api.dto.VOPersonDTO;
+import it.infn.mw.cern.hr.persistence.entity.VOPersonEntity;
 
-@Mapper(componentModel = "spring")
-public interface InstituteMapper {
+@Mapper(componentModel = "spring", unmappedTargetPolicy=ReportingPolicy.IGNORE)
+public interface VOPersonMapper {
   
-  InstituteDTO entityToDto(InstituteEntity e);
-  
+  VOPersonDTO entityToDto(VOPersonEntity e);
 
 }

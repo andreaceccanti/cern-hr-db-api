@@ -35,6 +35,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import it.infn.mw.cern.hr.api.Constants;
 import it.infn.mw.cern.hr.api.dto.ListResponseDTO;
+import it.infn.mw.cern.hr.api.dto.VOPersonDTO;
+import it.infn.mw.cern.hr.api.mappers.ParticipationMapper;
+import it.infn.mw.cern.hr.api.mappers.VOPersonMapper;
 import it.infn.mw.cern.hr.api.utils.ErrorSuppliers;
 import it.infn.mw.cern.hr.api.utils.PageUtils;
 import it.infn.mw.cern.hr.persistence.entity.ParticipationEntity;

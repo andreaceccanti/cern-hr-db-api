@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package it.infn.mw.cern.hr.api.persons;
+package it.infn.mw.cern.hr.api.mappers;
 
 import org.mapstruct.Mapper;
 
+import it.infn.mw.cern.hr.api.dto.ParticipationDTO;
 import it.infn.mw.cern.hr.persistence.entity.ParticipationEntity;
 
 @Mapper(componentModel = "spring")

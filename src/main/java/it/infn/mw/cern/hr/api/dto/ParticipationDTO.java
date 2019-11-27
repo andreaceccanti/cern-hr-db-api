@@ -13,15 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package it.infn.mw.cern.hr.api.persons;
+package it.infn.mw.cern.hr.api.dto;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-
-import it.infn.mw.cern.hr.api.institutes.InstituteDTO;
 
 @JsonInclude(NON_EMPTY)
 public class ParticipationDTO {

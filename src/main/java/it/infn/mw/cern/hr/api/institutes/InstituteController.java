@@ -30,7 +30,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.infn.mw.cern.hr.api.Constants;
+import it.infn.mw.cern.hr.api.dto.InstituteDTO;
 import it.infn.mw.cern.hr.api.dto.ListResponseDTO;
+import it.infn.mw.cern.hr.api.mappers.InstituteMapper;
 import it.infn.mw.cern.hr.api.utils.PageUtils;
 import it.infn.mw.cern.hr.persistence.entity.InstituteEntity;
 import it.infn.mw.cern.hr.persistence.repository.InstituteRepository;
