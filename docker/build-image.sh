@@ -19,7 +19,6 @@ set -ex
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}"  )" && pwd  )"
 
 JAR_NAME=hr-db-api
-IMAGE_NAME=indigoiam/hr-db-api
 
 if [[ -z ${JAR} ]]; then
   for f in ${DIR}/../target/${JAR_NAME}-*.jar; do
@@ -35,10 +34,6 @@ fi
 
 echo "Building image using jar from ${JAR}"
 
-IMAGE=${IMAGE:-${IMAGE_NAME}}
-
-cd ${DIR}
-cp ${JAR} ${JAR_NAME}.jar 
-
-docker build --rm=true --no-cache -t ${IMAGE} .
+cp ${JAR} ${JAR_NAME}.jar
+build-docker-image.sh
 rm ${JAR_NAME}.jar
