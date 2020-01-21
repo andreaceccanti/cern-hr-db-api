@@ -79,7 +79,8 @@ pipeline {
         unstash 'code'
         unstash 'jars'
         sh '''
-        /bin/bash docker/build-image.sh
+        cd docker
+        /bin/bash build-image.sh
         push-docker-image.sh
         '''
         script {
