@@ -82,6 +82,7 @@ pipeline {
           sh '''#!/bin/bash
           set -ex
           pwd
+          ls -al
           /bin/bash build-image.sh
           push-docker-image.sh
           '''
