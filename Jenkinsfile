@@ -78,15 +78,17 @@ pipeline {
         deleteDir()
         unstash 'code'
         unstash 'jars'
-        sh '''
+        sh '''#!/bin/bash
         cd docker
-        /bin/bash build-image.sh
+        pwd
+        build-image.sh
         push-docker-image.sh
         '''
         script {
           if (env.BRANCH_NAME == 'master' || params.PUSH_TO_DOCKERHUB ) {
-            sh '''
+            sh '''#!/bin/bash
             unset DOCKER_REGISTRY_HOST
+            cd docker
             push-docker-image.sh
             '''
           }
