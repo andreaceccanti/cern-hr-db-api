@@ -78,19 +78,20 @@ pipeline {
         deleteDir()
         unstash 'code'
         unstash 'jars'
-        sh '''#!/bin/bash
-        cd docker
-        pwd
-        build-image.sh
-        push-docker-image.sh
-        '''
-        script {
-          if (env.BRANCH_NAME == 'master' || params.PUSH_TO_DOCKERHUB ) {
-            sh '''#!/bin/bash
-            unset DOCKER_REGISTRY_HOST
-            cd docker
-            push-docker-image.sh
-            '''
+        dir('docker'){
+          sh '''#!/bin/bash
+          set -ex
+          pwd
+          build-image.sh
+          push-docker-image.sh
+          '''
+          script {
+            if (env.BRANCH_NAME == 'master' || params.PUSH_TO_DOCKERHUB ) {
+              sh '''#!/bin/bash
+              unset DOCKER_REGISTRY_HOST
+              push-docker-image.sh
+              '''
+            }
           }
         }
       }
