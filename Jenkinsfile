@@ -79,20 +79,19 @@ pipeline {
         unstash 'code'
         unstash 'jars'
         script {
-          sh '''#!/bin/bash
-          set -ex
-          cd docker
-          pwd
-          ls -al
-          /bin/bash build-image.sh
-          push-docker-image.sh
-          '''
-          if (env.BRANCH_NAME == 'master' || params.PUSH_TO_DOCKERHUB ) {
+          dir('docker') {
             sh '''#!/bin/bash
             set -ex
-            unset DOCKER_REGISTRY_HOST
+            /bin/bash build-image.sh
             push-docker-image.sh
             '''
+            if (env.BRANCH_NAME == 'master' || params.PUSH_TO_DOCKERHUB ) {
+              sh '''#!/bin/bash
+              set -ex
+              unset DOCKER_REGISTRY_HOST
+              push-docker-image.sh
+              '''
+            }
           }
         }
       }
