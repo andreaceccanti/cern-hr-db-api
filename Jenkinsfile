@@ -102,7 +102,6 @@ pipeline {
                 push-docker-image.sh
                 '''
               }
-            }
           }
         }
       }
