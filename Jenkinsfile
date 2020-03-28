@@ -79,18 +79,29 @@ pipeline {
         unstash 'code'
         unstash 'jars'
         script {
-          dir('docker') {
-            sh '''#!/bin/bash
-            set -ex
-            /bin/bash build-image.sh
-            push-docker-image.sh
-            '''
-            if (env.BRANCH_NAME == 'master' || params.PUSH_TO_DOCKERHUB ) {
+
+          withCredentials([usernamePassword(credentialsId: '', passwordVariable: 'ORACLE_PASSWORD', usernameVariable: 'ORACLE_USER')]) {
+            dir('docker/hr-db-base') {
               sh '''#!/bin/bash
               set -ex
-              unset DOCKER_REGISTRY_HOST
+              build-docker-image.sh
+              '''
+            }
+          }
+
+          dir('docker/hr-db-api'){
+              sh '''#!/bin/bash
+              set -ex
+              /bin/bash build-image.sh
               push-docker-image.sh
               '''
+              if (env.BRANCH_NAME == 'master' || params.PUSH_TO_DOCKERHUB ) {
+                sh '''#!/bin/bash
+                set -ex
+                unset DOCKER_REGISTRY_HOST
+                push-docker-image.sh
+                '''
+              }
             }
           }
         }
