@@ -37,11 +37,16 @@ public interface VOPersonRepository extends PagingAndSortingRepository<VOPersonE
   @Query("select p from VOPersonEntity p join p.participations pp where lower(pp.id.experiment) = lower(:experimentName) and pp.id.startDate < :instant and (pp.endDate is null or :instant < pp.endDate )")
   Page<VOPersonEntity> findByValidExperimentParticipation(String experimentName, Date instant,
       Pageable pageable);
+  
 
   @Query("select pp from VOPersonEntity p join p.participations pp where lower(pp.id.experiment) = lower(:experimentName) and pp.id.startDate < :instant and (pp.endDate is null or :instant < pp.endDate ) and p.id = :personId")
   Optional<ParticipationEntity> findValidExperimentParticipationByPersonId(String experimentName,
       Date instant, Long personId);
 
+  @Query("select pp from VOPersonEntity p join p.participations pp where lower(pp.id.experiment) = lower(:experimentName) and pp.id.startDate < :instant and (pp.endDate is null or :instant < pp.endDate ) and (lower(p.email) = lower(:email) or lower(p.physicalEmail) = lower(:email))")
+  Optional<ParticipationEntity> findValidExperimentParticipationByPersonEmail(String experimentName,
+      Date instant, String email);
+  
   @Query("select p from VOPersonEntity p join p.participations pp where lower(pp.id.experiment) = lower(:experimentName) and pp.endDate between :since and :now")
   Page<VOPersonEntity> findByExpiredExperimentParticipation(String experimentName, Date now,
       Date since, Pageable pageable);

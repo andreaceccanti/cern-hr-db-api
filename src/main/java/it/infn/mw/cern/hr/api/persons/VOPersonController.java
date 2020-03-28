@@ -134,6 +134,17 @@ public class VOPersonController {
     return p.isPresent();
   }
 
+  @GetMapping("/participation/{experiment}/valid-by-email")
+  public boolean hasValidExperimentParticipationForEmail(@PathVariable String experiment,
+      @RequestParam(required = true) String email) {
+
+    final Date currentTime = Date.from(clock.instant());
+    Optional<ParticipationEntity> p =
+        repo.findValidExperimentParticipationByPersonEmail(experiment, currentTime, email);
+
+    return p.isPresent();
+  }
+
   @GetMapping("/participation/{experiment}/expired")
   public ListResponseDTO<VOPersonDTO> findWithExpiredExperimentParticipation(
       @PathVariable String experiment, @RequestParam(required = false) final String since,

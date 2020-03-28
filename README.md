@@ -35,4 +35,7 @@ The `startIndex` and `count` parameters can be used for pagination.
 Returns a paginated list of valid participations for an experiment, given
 the experiment name.
 
-The `Countries`, `Institutes`, `Experiments` resources work similarly.
+### GET /VOPersons/participation/{experimentName}/valid/{personId}
+
+Returns `true` when the person identified by `personId` has a valid experiment
+participation in experiment `experimentName`, `false` otherwise.
