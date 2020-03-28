@@ -1,4 +1,4 @@
-FROM centos:7
+FROM indigoiam/cern-hr-db-base
 
 USER root
 
@@ -22,7 +22,6 @@ RUN groupadd -r $HR_USER -g 1000 \
       && usermod -g root -G `id -g $HR_USER` $HR_USER \
       && chmod -R "g+rwX" /hr \
       && chown -R $HR_USER:root /hr
-
 
 CMD java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap ${HR_JAVA_OPTS} -jar ${HR_JAR}
 

@@ -21,7 +21,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}"  )" && pwd  )"
 JAR_NAME=hr-db-api
 
 if [[ -z ${JAR} ]]; then
-  for f in ${DIR}/../target/${JAR_NAME}-*.jar; do
+  for f in ${DIR}/../../target/${JAR_NAME}-*.jar; do
     JAR=${f}
     break
   done

@@ -1,0 +1,8 @@
+[oracle-cnaf]
+name=Oracle instanctlient RPMs
+baseurl=https://repo.cloud.cnaf.infn.it/repository/oracle-rpm
+enabled=1
+priority=1
+gpgcheck=0
+username=%%%USERNAME%%%
+password=%%%PASSWORD%%%
