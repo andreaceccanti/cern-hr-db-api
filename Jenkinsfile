@@ -80,7 +80,7 @@ pipeline {
         unstash 'jars'
         script {
 
-          withCredentials([usernamePassword(credentialsId: '', passwordVariable: 'ORACLE_PASSWORD', usernameVariable: 'ORACLE_USER')]) {
+          withCredentials([usernamePassword(credentialsId: 'oracle-repo-read', passwordVariable: 'ORACLE_PASSWORD', usernameVariable: 'ORACLE_USER')]) {
             dir('docker/hr-db-base') {
               sh '''#!/bin/bash
               set -ex
