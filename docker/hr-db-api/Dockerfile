@@ -10,7 +10,6 @@ RUN mkdir -p /hr
 COPY hr-db-api.jar /hr/hr-db-api.jar
 
 RUN yum install -y java-11-openjdk-devel  \
-      && echo "securerandom.source=file:/dev/urandom" >> /usr/lib/jvm/java/jre/lib/security/java.security \ 
       && yum clean all
 
 ENV JAVA_HOME /etc/alternatives/jre
