@@ -20,6 +20,8 @@ import static java.lang.String.format;
 
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -39,6 +41,7 @@ import it.infn.mw.cern.hr.persistence.repository.InstituteRepository;
 
 @RestController
 @RequestMapping(value = InstituteController.RESOURCE)
+@Transactional
 public class InstituteController {
 
   public static final String RESOURCE = Constants.API_PREFIX + "/Institutes";

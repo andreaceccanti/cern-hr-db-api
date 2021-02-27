@@ -21,6 +21,6 @@ insert into foundation_pub.gdt2511_voms_persons(person_id,first_name,name,email,
   select * from csvread('src/test/resources/db/csv/vo_persons.csv', null, 'fieldSeparator=|');
   
 insert into foundation_pub.gdt2511_voms_participation(experiment,institute,person_id,start_date,end_date)
-  select experiment,institute,person_id, parsedatetime(start_date, 'dd-MMM-yy'),
-  parsedatetime(end_date, 'dd-MMM-yy')
+  select experiment,institute,person_id, parsedatetime(start_date, 'dd-MMM-yyyy', 'en', 'GMT'),
+  parsedatetime(end_date, 'dd-MMM-yyyy', 'en', 'GMT')
   from csvread('src/test/resources/db/csv/participations.csv', null, 'fieldSeparator=|');

@@ -24,6 +24,8 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -46,6 +48,7 @@ import it.infn.mw.cern.hr.persistence.repository.VOPersonRepository;
 
 @RestController
 @RequestMapping(value = VOPersonController.RESOURCE)
+@Transactional
 public class VOPersonController {
 
   public static final int VO_PERSONS_MAX_PAGE_SIZE = 100;

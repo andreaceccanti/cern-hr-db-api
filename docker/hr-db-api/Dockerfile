@@ -9,7 +9,7 @@ RUN mkdir -p /hr
 
 COPY hr-db-api.jar /hr/hr-db-api.jar
 
-RUN yum install -y java-1.8.0-openjdk java-1.8.0-openjdk-devel \
+RUN yum install -y java-11-openjdk-devel  \
       && echo "securerandom.source=file:/dev/urandom" >> /usr/lib/jvm/java/jre/lib/security/java.security \ 
       && yum clean all
 
@@ -23,12 +23,12 @@ RUN groupadd -r $HR_USER -g 1000 \
       && chmod -R "g+rwX" /hr \
       && chown -R $HR_USER:root /hr
 
-CMD java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap ${HR_JAVA_OPTS} -jar ${HR_JAR}
+CMD java ${HR_JAVA_OPTS} -jar ${HR_JAR}
 
 # Embed TINI since compose v3 syntax do not support the init 
 # option to run docker --init
 #
-ENV TINI_VERSION v0.18.0
+ENV TINI_VERSION v0.19.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
 RUN chmod +x /tini
 ENTRYPOINT ["/tini", "--"]

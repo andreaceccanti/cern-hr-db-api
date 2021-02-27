@@ -16,7 +16,7 @@
 
 spring:   
   jpa:
-    open-in-view: true
+    open-in-view: false
   
   main:
     banner-mode: "off"
@@ -40,6 +40,9 @@ management:
     info:
       enabled: true
     metrics:
+      enabled: true
+    
+    prometheus:
       enabled: true
 
 service:
