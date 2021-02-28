@@ -23,7 +23,7 @@
 
   <groupId>it.infn.mw.cern.hr</groupId>
   <artifactId>hr-db-api</artifactId>
-  <version>0.3-SNAPSHOT</version>
+  <version>0.4.0</version>
   <packaging>jar</packaging>
 
   <name>hr-db-api</name>
