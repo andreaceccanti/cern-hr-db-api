@@ -1,0 +1,57 @@
+
+name: Maven build & test
+
+on:
+  push:
+    branches: [ * ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 11
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11
+
+    - name: Build & Test with Maven
+      run: mvn -B package
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Login to Dockerhub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+    - name: Docker meta
+      id: docker_meta
+      uses: crazy-max/ghaction-docker-meta@v1
+      with:
+        images: andreaceccanti/hr-db-api
+        tag-sha: true
+
+    - name: Build base image
+      uses: docker/build-push-action@v2
+      with:
+        context: docker/hr-db-base
+        file: docker/hr-db-base/Dockerfile
+        push: false
+        secrets: |
+          "oracle-repo-config=${{secrets.ORACLE_REPO_CONFIG}}"
+
+    - name: Copy jar
+      run: cp target/*.jar docker/hr-db-api/hr-db-api.jar
+
+    - name: Build & push image
+      uses: docker/build-push-action@v2
+      with:
+        context: docker/hr-db-api
+        file: docker/hr-db-api/Dockerfile
+        push: ${{ startsWith(github.ref, 'refs/tags/') }}
+        tags: ${{ steps.docker_meta.outputs.tags }}
+        labels: ${{ steps.docker_meta.outputs.labels }}

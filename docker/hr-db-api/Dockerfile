@@ -7,8 +7,6 @@ ENV HR_JAR /hr/hr-db-api.jar
 
 RUN mkdir -p /hr
 
-COPY hr-db-api.jar /hr/hr-db-api.jar
-
 RUN yum install -y java-11-openjdk-devel  \
       && yum clean all
 
@@ -24,9 +22,8 @@ RUN groupadd -r $HR_USER -g 1000 \
 
 CMD java ${HR_JAVA_OPTS} -jar ${HR_JAR}
 
-# Embed TINI since compose v3 syntax do not support the init 
-# option to run docker --init
-#
+COPY hr-db-api.jar /hr/hr-db-api.jar
+
 ENV TINI_VERSION v0.19.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
 RUN chmod +x /tini
