@@ -3,8 +3,8 @@ name: Maven build & test
 
 on:
   push:
-    branches: [ * ]
-
+    branches: 
+      - "*"
 jobs:
   build:
     runs-on: ubuntu-latest
