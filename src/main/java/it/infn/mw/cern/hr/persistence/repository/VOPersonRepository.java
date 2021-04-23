@@ -16,6 +16,7 @@
 package it.infn.mw.cern.hr.persistence.repository;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -40,13 +41,23 @@ public interface VOPersonRepository extends PagingAndSortingRepository<VOPersonE
   
 
   @Query("select pp from VOPersonEntity p join p.participations pp where lower(pp.id.experiment) = lower(:experimentName) and pp.id.startDate < :instant and (pp.endDate is null or :instant < pp.endDate ) and p.id = :personId")
+  @Deprecated
   Optional<ParticipationEntity> findValidExperimentParticipationByPersonId(String experimentName,
       Date instant, Long personId);
 
+  @Query("select pp from VOPersonEntity p join p.participations pp where lower(pp.id.experiment) = lower(:experimentName) and pp.id.startDate < :instant and (pp.endDate is null or :instant < pp.endDate ) and p.id = :personId")
+  List<ParticipationEntity> findValidExperimentParticipationsByPersonId(String experimentName,
+      Date instant, Long personId);
+
   @Query("select pp from VOPersonEntity p join p.participations pp where lower(pp.id.experiment) = lower(:experimentName) and pp.id.startDate < :instant and (pp.endDate is null or :instant < pp.endDate ) and (lower(p.email) = lower(:email) or lower(p.physicalEmail) = lower(:email))")
+  @Deprecated
   Optional<ParticipationEntity> findValidExperimentParticipationByPersonEmail(String experimentName,
       Date instant, String email);
   
+  @Query("select pp from VOPersonEntity p join p.participations pp where lower(pp.id.experiment) = lower(:experimentName) and pp.id.startDate < :instant and (pp.endDate is null or :instant < pp.endDate ) and (lower(p.email) = lower(:email) or lower(p.physicalEmail) = lower(:email))")
+  List<ParticipationEntity> findValidExperimentParticipationsByPersonEmail(String experimentName,
+      Date instant, String email);
+
   @Query("select p from VOPersonEntity p join p.participations pp where lower(pp.id.experiment) = lower(:experimentName) and pp.endDate between :since and :now")
   Page<VOPersonEntity> findByExpiredExperimentParticipation(String experimentName, Date now,
       Date since, Pageable pageable);

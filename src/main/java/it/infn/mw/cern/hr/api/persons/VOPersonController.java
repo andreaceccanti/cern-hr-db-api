@@ -21,8 +21,8 @@ import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -131,10 +131,10 @@ public class VOPersonController {
 
     final Date currentTime = Date.from(clock.instant());
 
-    Optional<ParticipationEntity> p =
-        repo.findValidExperimentParticipationByPersonId(experiment, currentTime, personId);
+    List<ParticipationEntity> p =
+        repo.findValidExperimentParticipationsByPersonId(experiment, currentTime, personId);
 
-    return p.isPresent();
+    return p.size() > 0;
   }
 
   @GetMapping("/participation/{experiment}/valid-by-email")
@@ -142,10 +142,11 @@ public class VOPersonController {
       @RequestParam(required = true) String email) {
 
     final Date currentTime = Date.from(clock.instant());
-    Optional<ParticipationEntity> p =
-        repo.findValidExperimentParticipationByPersonEmail(experiment, currentTime, email);
 
-    return p.isPresent();
+    List<ParticipationEntity> p =
+        repo.findValidExperimentParticipationsByPersonEmail(experiment, currentTime, email);
+
+    return p.size() > 0;
   }
 
   @GetMapping("/participation/{experiment}/expired")
